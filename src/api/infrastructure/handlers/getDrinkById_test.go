@@ -45,7 +45,7 @@ func TestGetDrinkByIdOk(t *testing.T) {
 		DBClient:connection,
 	}
 
-	handler := Handler {
+	handler := GetDrinkById {
 		Repository: repo,
 	}
 
