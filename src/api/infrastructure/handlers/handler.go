@@ -51,7 +51,8 @@ func (h Handler) GetDrinks(c *gin.Context) {
 		case entities.VINO:
 			response.TotalWithTaxes = response.TotalWithTaxes + drink.Price * 1.21
 		case entities.WHISKY:
-			response.TotalWithTaxes = response.TotalWithTaxes + drink.Price * 1.105
+			response.TotalWithTaxes = response.TotalWithTaxes +
+				drink.Price * 1.105 * utils.NullableInt32ToFloat64(drink.Aging)
 		case entities.WATER:
 			response.TotalWithTaxes = response.TotalWithTaxes + drink.Price * 2.5
 		}
