@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/insurance-drinks-api/src/api/core/dto/responses"
-	"github.com/insurance-drinks-api/src/api/core/entities"
+	"github.com/insurance-drinks-api/src/api/core/entities/interfaces"
 	"github.com/insurance-drinks-api/src/api/infrastructure/repository"
 	"github.com/insurance-drinks-api/src/api/infrastructure/utils"
+	"github.com/insurance-drinks-api/src/api/infrastructure/utils/instances"
 )
 
 type GetDrinks struct {
@@ -22,17 +23,15 @@ func (h GetDrinks) GetDrinks(c *gin.Context) {
 		return
 	}
 
-	for _, drink := range drinks {
-		response.Drink = append(response.Drink, drink)
+	var castDrink interfaces.Drink
 
-		switch drink.Type {
-		case entities.VINO:
-			response.TotalWithTaxes = response.TotalWithTaxes + drink.Price * 1.21
-		case entities.WHISKY:
-			response.TotalWithTaxes = response.TotalWithTaxes + drink.Price * 1.105
-		case entities.WATER:
-			response.TotalWithTaxes = response.TotalWithTaxes + drink.Price * 2.5
-		}
+	for _, drink := range drinks {
+		castDrink = instances.CastDrinkInstances(drink)
+
+		response.Drink = append(response.Drink, castDrink)
+
+		response.TotalWithTaxes = response.TotalWithTaxes +
+			castDrink.GetTotalWithTaxes() * float64(castDrink.GetAging())
 	}
 
 	utils.HandleResponseOk(c, response)
