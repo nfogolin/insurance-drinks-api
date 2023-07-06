@@ -3,25 +3,33 @@ package dependencies
 import (
 	"github.com/insurance-drinks-api/src/api/config"
 	"github.com/insurance-drinks-api/src/api/infrastructure/handlers"
+	"github.com/insurance-drinks-api/src/api/infrastructure/handlers/interfaces"
 	"github.com/insurance-drinks-api/src/api/infrastructure/repository"
+	irepository "github.com/insurance-drinks-api/src/api/infrastructure/repository/interfaces"
 )
 
 type HandlerContainer struct {
-	Ping handlers.Ping
-	GetDrinkById handlers.GetDrinkById
-	GetDrinks handlers.GetDrinks
-	SaveDrink handlers.SaveDrink
+	Ping interfaces.Handler
+	GetDrinkById interfaces.Handler
+	GetDrinks interfaces.Handler
+	SaveDrink interfaces.Handler
 }
 
 var (
-	drinkRepository repository.Repository
+	drinkRepository irepository.Repository
+	mongodbRepository irepository.Repository
 )
 
 func Initialize() *HandlerContainer {
 	connection := config.CreateClient()
+	mongodb := config.CreateMongoDBClient()
 
-	drinkRepository = repository.Repository{
+	drinkRepository = repository.MysqlRepository{
 		DBClient:connection,
+	}
+
+	mongodbRepository = repository.MongoDbRepository{
+		Client: mongodb,
 	}
 
 	handlerContainer := HandlerContainer{}
@@ -33,11 +41,11 @@ func Initialize() *HandlerContainer {
 	}
 
 	handlerContainer.GetDrinks = handlers.GetDrinks{
-		Repository:drinkRepository,
+		Repository:mongodbRepository,
 	}
 
 	handlerContainer.SaveDrink = handlers.SaveDrink{
-		Repository:drinkRepository,
+		Repository:mongodbRepository,
 	}
 
 	return &handlerContainer

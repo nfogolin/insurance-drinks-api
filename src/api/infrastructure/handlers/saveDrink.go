@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/insurance-drinks-api/src/api/core/entities/dto"
-	"github.com/insurance-drinks-api/src/api/infrastructure/repository"
+	"github.com/insurance-drinks-api/src/api/infrastructure/repository/interfaces"
 	"github.com/insurance-drinks-api/src/api/infrastructure/utils"
 )
 
 type SaveDrink struct {
-	Repository repository.Repository
+	Repository interfaces.Repository
 }
 
-func (h SaveDrink) SaveDrink(c *gin.Context) {
+func (h SaveDrink) Handle(c *gin.Context) {
 	var drink dto.Drink
 
 	if err := c.ShouldBindJSON(&drink); err != nil {

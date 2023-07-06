@@ -6,11 +6,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type Repository struct {
+type MysqlRepository struct {
 	DBClient *gorm.DB
 }
 
-func (t Repository) GetByID(id int64) (response *dto.Drink, err error) {
+func (t MysqlRepository) GetByID(id int64) (response *dto.Drink, err error) {
 	result := t.DBClient.Table("Drink").First(&response, id)
 
 	if result.Error != nil {
@@ -24,7 +24,7 @@ func (t Repository) GetByID(id int64) (response *dto.Drink, err error) {
 	return response, nil
 }
 
-func (t Repository) GetDrinks() (response []dto.Drink, err error) {
+func (t MysqlRepository) GetDrinks() (response []dto.Drink, err error) {
 	result := t.DBClient.Table("Drink").Scan(&response)
 
 	if result.Error != nil {
@@ -38,7 +38,7 @@ func (t Repository) GetDrinks() (response []dto.Drink, err error) {
 	return response, nil
 }
 
-func (t Repository) SaveDrink(drink dto.Drink) (response *dto.Drink, err error) {
+func (t MysqlRepository) SaveDrink(drink dto.Drink) (response *dto.Drink, err error) {
 	result := t.DBClient.Table("Drink").Save(&drink)
 
 	if result.Error != nil {

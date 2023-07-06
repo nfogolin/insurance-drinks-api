@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/insurance-drinks-api/src/api/core/dto/requests"
-	"github.com/insurance-drinks-api/src/api/infrastructure/repository"
+	"github.com/insurance-drinks-api/src/api/infrastructure/repository/interfaces"
 	"github.com/insurance-drinks-api/src/api/infrastructure/utils"
 )
 
 type GetDrinkById struct {
-	Repository repository.Repository
+	Repository interfaces.Repository
 }
 
-func (h GetDrinkById) GetDrinkById(c *gin.Context) {
+func (h GetDrinkById) Handle(c *gin.Context) {
 	var getDrinkByIdRequest requests.GetDrinkByIdRequest
 
 	if err := c.ShouldBindUri(&getDrinkByIdRequest); err != nil {

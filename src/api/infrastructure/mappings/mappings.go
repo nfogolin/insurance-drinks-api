@@ -14,10 +14,10 @@ type Router struct {
 func (t *Router) ConfigureRouting() {
 	router := gin.Default()
 
-	router.GET(utils.URL_GET_PING, t.HandlerContainer.Ping.Ping)
-	router.POST(utils.URL_POST_DRINKS, t.HandlerContainer.SaveDrink.SaveDrink)
-	router.GET(utils.URL_GET_DRINKS, t.HandlerContainer.GetDrinks.GetDrinks)
-	router.GET(utils.URL_GET_DRINK_BY_ID, t.HandlerContainer.GetDrinkById.GetDrinkById)
+	router.GET(utils.URL_GET_PING, t.HandlerContainer.Ping.Handle)
+	router.POST(utils.URL_POST_DRINKS, t.HandlerContainer.SaveDrink.Handle)
+	router.GET(utils.URL_GET_DRINKS, t.HandlerContainer.GetDrinks.Handle)
+	router.GET(utils.URL_GET_DRINK_BY_ID, t.HandlerContainer.GetDrinkById.Handle)
 
 	if err := router.Run("localhost:8080"); err != nil {
 		fmt.Sprintf("Error al inicializar API %s", err)

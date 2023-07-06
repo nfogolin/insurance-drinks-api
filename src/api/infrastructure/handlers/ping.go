@@ -9,6 +9,6 @@ type Ping struct {
 
 }
 
-func (h Ping) Ping(c *gin.Context) {
+func (h Ping) Handle(c *gin.Context) {
 	utils.HandleResponseOk(c, "pong")
 }

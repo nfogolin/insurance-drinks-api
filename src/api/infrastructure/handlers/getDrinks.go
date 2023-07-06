@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/insurance-drinks-api/src/api/core/dto/responses"
 	"github.com/insurance-drinks-api/src/api/core/entities/interfaces"
-	"github.com/insurance-drinks-api/src/api/infrastructure/repository"
+	repository "github.com/insurance-drinks-api/src/api/infrastructure/repository/interfaces"
 	"github.com/insurance-drinks-api/src/api/infrastructure/utils"
 	"github.com/insurance-drinks-api/src/api/infrastructure/utils/instances"
 )
@@ -14,7 +14,7 @@ type GetDrinks struct {
 	Repository repository.Repository
 }
 
-func (h GetDrinks) GetDrinks(c *gin.Context) {
+func (h GetDrinks) Handle(c *gin.Context) {
 	var response responses.GetDrinksTotalPricesResponse
 
 	drinks, err := h.Repository.GetDrinks()
