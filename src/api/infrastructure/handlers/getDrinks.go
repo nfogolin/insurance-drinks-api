@@ -31,7 +31,7 @@ func (h GetDrinks) GetDrinks(c *gin.Context) {
 		response.Drink = append(response.Drink, castDrink)
 
 		response.TotalWithTaxes = response.TotalWithTaxes +
-			castDrink.GetTotalWithTaxes() * float64(castDrink.GetAging())
+			castDrink.GetTotalWithTaxes()
 	}
 
 	utils.HandleResponseOk(c, response)

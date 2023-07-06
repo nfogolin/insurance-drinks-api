@@ -1,13 +1,11 @@
 package entities
 
+import "github.com/insurance-drinks-api/src/api/core/entities/dto"
+
 type Wine struct {
-	Drink
+	dto.BaseDrink
 }
 
 func (t *Wine) GetTotalWithTaxes() float64 {
 	return t.Price * 1.27
-}
-
-func (t *Wine) GetAging() int32 {
-	return 1
 }

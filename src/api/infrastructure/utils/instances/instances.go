@@ -2,6 +2,7 @@ package instances
 
 import (
 	"github.com/insurance-drinks-api/src/api/core/entities"
+	"github.com/insurance-drinks-api/src/api/core/entities/dto"
 	"github.com/insurance-drinks-api/src/api/core/entities/interfaces"
 )
 
@@ -11,21 +12,22 @@ const (
 	Water = "Water"
 )
 
-func CastDrinkInstances(obj entities.Drink) interfaces.Drink {
+func CastDrinkInstances(obj dto.Drink) interfaces.Drink {
 	var newObj interfaces.Drink
 
 	switch obj.Type {
 	case Whisky:
 		newObj = &entities.Whisky{
-			Drink: obj,
+			BaseDrink: obj.BaseDrink,
+			Aging:obj.Aging,
 		}
 	case Wine:
 		newObj = &entities.Wine{
-			Drink: obj,
+			BaseDrink: obj.BaseDrink,
 		}
 	case Water:
 		newObj = &entities.Water{
-			Drink: obj,
+			BaseDrink: obj.BaseDrink,
 		}
 	}
 

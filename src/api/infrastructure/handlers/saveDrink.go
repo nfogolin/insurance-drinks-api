@@ -3,7 +3,7 @@ package handlers
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/insurance-drinks-api/src/api/core/entities"
+	"github.com/insurance-drinks-api/src/api/core/entities/dto"
 	"github.com/insurance-drinks-api/src/api/infrastructure/repository"
 	"github.com/insurance-drinks-api/src/api/infrastructure/utils"
 )
@@ -13,7 +13,7 @@ type SaveDrink struct {
 }
 
 func (h SaveDrink) SaveDrink(c *gin.Context) {
-	var drink entities.Drink
+	var drink dto.Drink
 
 	if err := c.ShouldBindJSON(&drink); err != nil {
 		utils.HandleResponseBadRequest(c, err.Error())

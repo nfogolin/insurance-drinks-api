@@ -2,7 +2,7 @@ package repository
 
 import (
 	"errors"
-	"github.com/insurance-drinks-api/src/api/core/entities"
+	"github.com/insurance-drinks-api/src/api/core/entities/dto"
 	"gorm.io/gorm"
 )
 
@@ -10,7 +10,7 @@ type Repository struct {
 	DBClient *gorm.DB
 }
 
-func (t Repository) GetByID(id int64) (response *entities.Drink, err error) {
+func (t Repository) GetByID(id int64) (response *dto.Drink, err error) {
 	result := t.DBClient.Table("Drink").First(&response, id)
 
 	if result.Error != nil {
@@ -24,7 +24,7 @@ func (t Repository) GetByID(id int64) (response *entities.Drink, err error) {
 	return response, nil
 }
 
-func (t Repository) GetDrinks() (response []entities.Drink, err error) {
+func (t Repository) GetDrinks() (response []dto.Drink, err error) {
 	result := t.DBClient.Table("Drink").Scan(&response)
 
 	if result.Error != nil {
@@ -38,7 +38,7 @@ func (t Repository) GetDrinks() (response []entities.Drink, err error) {
 	return response, nil
 }
 
-func (t Repository) SaveDrink(drink entities.Drink) (response *entities.Drink, err error) {
+func (t Repository) SaveDrink(drink dto.Drink) (response *dto.Drink, err error) {
 	result := t.DBClient.Table("Drink").Save(&drink)
 
 	if result.Error != nil {

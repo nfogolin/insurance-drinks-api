@@ -1,7 +1,9 @@
 package responses
 
-import "github.com/insurance-drinks-api/src/api/core/entities"
+import (
+	"github.com/insurance-drinks-api/src/api/core/entities/dto"
+)
 
 type SaveDrinkResponse struct {
-	Drink *entities.Drink `json:"drink"`
+	Drink *dto.Drink `json:"drink"`
 }
